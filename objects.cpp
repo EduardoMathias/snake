@@ -15,9 +15,9 @@ Snake::~Snake()
 {
 }
 
-pos *Snake::head()
+pos Snake::head()
 {
-    return &positions.front();
+    return positions.front();
 }
 
 pos *Snake::tail()
@@ -27,9 +27,16 @@ pos *Snake::tail()
 
 void Snake::move(int x_dir, int y_dir)
 {
-    auto new_head = *this->head();
+    auto new_head = this->head();
     new_head.x += x_dir;
     new_head.y += y_dir;
+    this->wallCollision(new_head);
+    positions.push_front(new_head);
+    positions.pop_back();
+}
+
+void Snake::wallCollision(pos &new_head)
+{
     if (new_head.x >= 99)
     {
         new_head.x = 1;
@@ -46,7 +53,5 @@ void Snake::move(int x_dir, int y_dir)
     {
         new_head.y = 37;
     }
-    positions.push_front(new_head);
-    positions.pop_back();
 }
 } // namespace Objects

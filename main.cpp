@@ -46,7 +46,7 @@ int main(void)
         {
             mvprintw(part.y, part.x, "o");
         }
-        mvprintw(snake->head()->y, snake->head()->x, "@");
+        mvprintw(snake->head().y, snake->head().x, "@");
         refresh();
         usleep(delay);
     }

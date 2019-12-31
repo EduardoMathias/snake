@@ -12,12 +12,12 @@ namespace Objects
 class Snake
 {
 private:
-
+    void wallCollision(pos &new_head);
 public:
     std::list<pos> positions;
     Snake(int _x, int _y);
     ~Snake();
-    pos *head();
+    pos head();
     pos *tail();
     void move(int xdir, int ydir);
 };
