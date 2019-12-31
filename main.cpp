@@ -18,7 +18,7 @@ int main(void)
     }
     auto snake = new Objects::Snake(scr->width / 2, scr->height / 2);
     int key;
-    int y_dir = 0, x_dir = 0;
+    int y_dir = 0, x_dir = 1;
     while ((key = getch()) != 'q')
     {
         clear();
@@ -42,11 +42,11 @@ int main(void)
             x_dir = 0;
         }
         snake->move(x_dir, y_dir);
-        mvprintw(snake->head()->y, snake->head()->x, "x");
         for (auto &part : snake->positions)
         {
             mvprintw(part.y, part.x, "o");
         }
+        mvprintw(snake->head()->y, snake->head()->x, "@");
         refresh();
         usleep(delay);
     }

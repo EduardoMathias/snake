@@ -12,7 +12,7 @@ namespace Objects
 class Snake
 {
 private:
-    pos _head;
+
 public:
     std::list<pos> positions;
     Snake(int _x, int _y);
