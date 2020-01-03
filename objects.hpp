@@ -1,10 +1,11 @@
 #pragma once
 #include <list>
+#include <random>
 
 struct pos
 {
-    int x;
-    int y;
+    unsigned int x;
+    unsigned int y;
 };
 
 namespace Objects
@@ -19,7 +20,9 @@ public:
     ~Snake();
     pos head();
     pos *tail();
-    void move(int xdir, int ydir);
+    bool move(int xdir, int ydir);
+    bool bodyCollision(pos &new_head);
+    void draw();
 };
 
 } // namespace Objects

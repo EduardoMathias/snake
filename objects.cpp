@@ -1,4 +1,6 @@
 #include "objects.hpp"
+#include <curses.h>
+#include <random>
 
 namespace Objects
 {
@@ -25,14 +27,17 @@ pos *Snake::tail()
     return &positions.back();
 }
 
-void Snake::move(int x_dir, int y_dir)
+bool Snake::move(int x_dir, int y_dir)
 {
     auto new_head = this->head();
     new_head.x += x_dir;
     new_head.y += y_dir;
     this->wallCollision(new_head);
+    if (this->bodyCollision(new_head))
+        return false;
     positions.push_front(new_head);
     positions.pop_back();
+    return true;
 }
 
 void Snake::wallCollision(pos &new_head)
@@ -54,4 +59,26 @@ void Snake::wallCollision(pos &new_head)
         new_head.y = 37;
     }
 }
+
+bool Snake::bodyCollision(pos &new_head)
+{
+    for (auto &part : positions)
+    {
+        if (new_head.x == part.x && new_head.y == part.y)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Snake::draw()
+{
+    for (auto &part : positions)
+    {
+        mvprintw(part.y, part.x, "o");
+    }
+    mvprintw(this->head().y, this->head().x, "@");
+}
+
 } // namespace Objects
