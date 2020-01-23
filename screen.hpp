@@ -1,18 +1,16 @@
 #pragma once
 
-namespace Screen
-{
+namespace Screen {
 
-class Screen
-{
+class Screen {
 private:
-    /* data */
+  /* data */
 public:
-    int height, width;
-    Screen();
-    ~Screen();
-    bool enoughSize();
-    void drawBox();
+  int height, width;
+  Screen();
+  ~Screen();
+  bool enoughSize();
+  void drawBox();
 };
 
 }; // namespace Screen
