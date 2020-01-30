@@ -10,7 +10,6 @@
 constexpr int delay = 80000;
 
 int main(void) {
-  auto rng = new Objects::RNG(99, 37);
   auto scr = new Screen::Screen();
   if (!scr->enoughSize()) {
     delete scr;
@@ -20,7 +19,6 @@ int main(void) {
   auto snake = new Objects::Snake(scr->width / 2, scr->height / 2);
   int key;
   int y_dir = 0, x_dir = 1;
-  auto food = rng->spawnFood();
   while ((key = getch()) != 'q') {
     clear();
     scr->drawBox();
@@ -53,7 +51,6 @@ int main(void) {
       mvprintw(scr->height / 2, scr->width / 2 - 4, "Gameover");
     else
       snake->draw();
-    mvprintw(food.y, food.x, "x");
     refresh();
     usleep(delay);
   }

@@ -4,10 +4,11 @@
 
 namespace Objects {
 
-Snake::Snake(unsigned int _x, unsigned int _y) {
-  for (auto i = 0; i <= 10; i++) {
+Snake::Snake(unsigned int _x, unsigned int _y) : rng(99, 37) {
+  for (auto i = 0; i < 5; i++) {
     positions.push_back({_x - i, _y});
   }
+  food = rng.spawnFood();
 }
 
 Snake::~Snake() {}
@@ -20,18 +21,21 @@ bool Snake::move(int x_dir, int y_dir) {
   auto new_head = this->head();
   new_head.x += x_dir;
   new_head.y += y_dir;
-  this->wallCollision(new_head);
-  if (this->bodyCollision(new_head))
+  wallCollision(new_head);
+  if (bodyCollision(new_head))
     return false;
   positions.push_front(new_head);
-  positions.pop_back();
+  if(new_head == food)
+    food = rng.spawnFood();
+  else
+    positions.pop_back();
   return true;
 }
 
 void Snake::wallCollision(pos &new_head) {
   if (new_head.x >= 99) {
     new_head.x = 1;
-  } else if (new_head.x < 0) {
+  } else if (new_head.x <= 0) {
     new_head.x = 98;
   }
   if (new_head.y >= 37) {
@@ -43,7 +47,7 @@ void Snake::wallCollision(pos &new_head) {
 
 bool Snake::bodyCollision(pos &new_head) {
   for (auto &part : positions) {
-    if (new_head.x == part.x && new_head.y == part.y) {
+    if (new_head == part) {
       return true;
     }
   }
@@ -55,6 +59,7 @@ void Snake::draw() {
     mvprintw(part.y, part.x, "o");
   }
   mvprintw(head().y, head().x, "@");
+  mvprintw(food.y, food.x, "x");
 }
 
 } // namespace Objects

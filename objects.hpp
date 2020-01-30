@@ -1,16 +1,15 @@
 #pragma once
+#include "rng.hpp"
+
 #include <list>
 #include <random>
-
-struct pos {
-  unsigned int x;
-  unsigned int y;
-};
 
 namespace Objects {
 class Snake {
 private:
+  RNG rng;
   void wallCollision(pos &new_head);
+  pos food;
 
 public:
   std::list<pos> positions;
