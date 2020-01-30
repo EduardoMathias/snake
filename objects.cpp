@@ -4,7 +4,7 @@
 
 namespace Objects {
 
-Snake::Snake(int _x, int _y) {
+Snake::Snake(unsigned int _x, unsigned int _y) {
   for (auto i = 0; i <= 10; i++) {
     positions.push_back({_x - i, _y});
   }
@@ -54,7 +54,7 @@ void Snake::draw() {
   for (auto &part : positions) {
     mvprintw(part.y, part.x, "o");
   }
-  mvprintw(this->head().y, this->head().x, "@");
+  mvprintw(head().y, head().x, "@");
 }
 
 } // namespace Objects

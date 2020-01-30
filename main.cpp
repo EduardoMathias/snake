@@ -1,4 +1,5 @@
 #include "objects.hpp"
+#include "rng.hpp"
 #include "screen.hpp"
 
 #include <iostream>
@@ -8,17 +9,8 @@
 
 constexpr int delay = 80000;
 
-pos spawnFood(std::uniform_int_distribution<std::mt19937::result_type> dist_x,
-              std::uniform_int_distribution<std::mt19937::result_type> dist_y,
-              std::mt19937 rng) {
-  return {dist_x(rng), dist_y(rng)};
-}
-
 int main(void) {
-  std::random_device dev;
-  std::mt19937 rng(dev());
-  std::uniform_int_distribution<std::mt19937::result_type> dist_x(1, 99);
-  std::uniform_int_distribution<std::mt19937::result_type> dist_y(1, 37);
+  auto rng = new Objects::RNG(99, 37);
   auto scr = new Screen::Screen();
   if (!scr->enoughSize()) {
     delete scr;
@@ -28,7 +20,7 @@ int main(void) {
   auto snake = new Objects::Snake(scr->width / 2, scr->height / 2);
   int key;
   int y_dir = 0, x_dir = 1;
-  auto food = spawnFood(dist_x, dist_y, rng);
+  auto food = rng->spawnFood();
   while ((key = getch()) != 'q') {
     clear();
     scr->drawBox();

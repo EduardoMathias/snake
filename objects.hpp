@@ -14,7 +14,7 @@ private:
 
 public:
   std::list<pos> positions;
-  Snake(int _x, int _y);
+  Snake(unsigned int _x, unsigned int _y);
   ~Snake();
   pos head();
   pos *tail();
