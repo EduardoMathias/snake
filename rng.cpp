@@ -1,5 +1,7 @@
 #include "rng.hpp"
 
+bool pos::operator==(pos a) { return a.x == x && a.y == y; }
+
 namespace Objects {
 
 RNG::RNG(int max_x, int max_y)

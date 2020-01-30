@@ -4,7 +4,7 @@
 struct pos {
   unsigned int x;
   unsigned int y;
-  bool operator==(pos a) { return a.x == x && a.y == y; }
+  bool operator==(pos a);
 };
 
 namespace Objects {
