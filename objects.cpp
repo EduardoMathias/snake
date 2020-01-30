@@ -4,7 +4,7 @@
 
 namespace Objects {
 
-Snake::Snake(unsigned int _x, unsigned int _y) : rng(99, 37) {
+Snake::Snake(unsigned int _x, unsigned int _y) : rng(98, 36) {
   for (auto i = 0; i < 5; i++) {
     positions.push_back({_x - i, _y});
   }
@@ -15,17 +15,15 @@ Snake::~Snake() {}
 
 pos Snake::head() { return positions.front(); }
 
-pos *Snake::tail() { return &positions.back(); }
-
 bool Snake::move(int x_dir, int y_dir) {
-  auto new_head = this->head();
+  auto new_head = head();
   new_head.x += x_dir;
   new_head.y += y_dir;
   wallCollision(new_head);
   if (bodyCollision(new_head))
     return false;
   positions.push_front(new_head);
-  if(new_head == food)
+  if (new_head == food)
     food = rng.spawnFood();
   else
     positions.pop_back();

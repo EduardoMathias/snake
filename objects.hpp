@@ -16,7 +16,6 @@ public:
   Snake(unsigned int _x, unsigned int _y);
   ~Snake();
   pos head();
-  pos *tail();
   bool move(int xdir, int ydir);
   bool bodyCollision(pos &new_head);
   void draw();
