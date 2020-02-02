@@ -13,10 +13,10 @@ private:
 
 public:
   std::list<pos> positions;
-  Snake(unsigned int _x, unsigned int _y);
+  Snake(int _x, int _y);
   ~Snake();
   pos head();
-  bool move(int xdir, int ydir);
+  bool move(pos dir);
   bool bodyCollision(pos &new_head);
   void draw();
 };

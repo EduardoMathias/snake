@@ -7,7 +7,7 @@
 #include <random>
 #include <unistd.h>
 
-constexpr int delay = 80000;
+constexpr int delay = 50000;
 
 int main(void) {
   auto scr = new Screen::Screen();
@@ -18,36 +18,37 @@ int main(void) {
   }
   auto snake = new Objects::Snake(scr->width / 2, scr->height / 2);
   int key;
-  int y_dir = 0, x_dir = 1;
+  pos dir = {1, 0};
   while ((key = getch()) != 'q') {
     clear();
     scr->drawBox();
     switch (key) {
     case KEY_LEFT:
-      if (x_dir != 1) {
-        x_dir = -1;
-        y_dir = 0;
+      if (dir.x != 1) {
+        dir.x = -1;
+        dir.y = 0;
       }
       break;
     case KEY_RIGHT:
-      if (x_dir != -1) {
-        x_dir = 1;
-        y_dir = 0;
+      if (dir.x != -1) {
+        dir.x = 1;
+        dir.y = 0;
       }
       break;
     case KEY_UP:
-      if (y_dir != 1) {
-        y_dir = -1;
-        x_dir = 0;
+      if (dir.y != 1) {
+        dir.x = 0;
+        dir.y = -1;
       }
       break;
     case KEY_DOWN:
-      if (y_dir != -1) {
-        y_dir = 1;
-        x_dir = 0;
+      if (dir.y != -1) {
+        dir.x = 0;
+        dir.y = 1;
       }
     }
-    if (!snake->move(x_dir, y_dir))
+    // TODO: um gameover de verdade
+    if (!snake->move(dir))
       mvprintw(scr->height / 2, scr->width / 2 - 4, "Gameover");
     else
       snake->draw();

@@ -1,6 +1,11 @@
 #include "rng.hpp"
 
 bool pos::operator==(pos a) { return a.x == x && a.y == y; }
+pos &pos::operator+=(pos &a) {
+  x += a.x;
+  y += a.y;
+  return *this;
+}
 
 namespace Objects {
 
@@ -9,7 +14,5 @@ RNG::RNG(int max_x, int max_y)
 
 RNG::~RNG() {}
 
-pos RNG::spawnFood() {
-  return {(unsigned int)dist_x(rng), (unsigned int)dist_y(rng)};
-}
+pos RNG::spawnFood() { return {(int)dist_x(rng), (int)dist_y(rng)}; }
 } // namespace Objects

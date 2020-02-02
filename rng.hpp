@@ -2,9 +2,10 @@
 
 #include <random>
 struct pos {
-  unsigned int x;
-  unsigned int y;
+  int x;
+  int y;
   bool operator==(pos a);
+  pos &operator+=(pos &a);
 };
 
 namespace Objects {
